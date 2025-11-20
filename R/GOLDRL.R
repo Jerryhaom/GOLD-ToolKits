@@ -37,21 +37,21 @@
 #' var <- c("age", "albumin", "alp", "creat", "glucose_mmol", "lymph", "mcv", "rdw", "wbc", "ggt")
 #'
 #' # Without feature selection
-#' result1 <- goldrl_bioage(NHANES4, var)
+#' result1 <- goldrl_bioage(NHANES4, var, var)
 #'
 #' # With LASSO feature selection
-#' result2 <- goldrl_bioage(NHANES4, var,
+#' result2 <- goldrl_bioage(NHANES4, var, var,
 #'                       feature_selection = TRUE,
 #'                       selection_method = "lasso")
 #'
 #' # With Elasticnet feature selection
-#' result3 <- goldrl_bioage(NHANES4, var,
+#' result3 <- goldrl_bioage(NHANES4, var, var,
 #'                       feature_selection = TRUE,
 #'                       selection_method = "elasticnet",
 #'                       alpha = 0.5)
 #'
 ##GOLD-RL
-goldrl_bioage <- function(d4, var, feature_selection = TRUE,
+goldrl_bioage <- function(d4, var, var1, feature_selection = TRUE,
                           selection_method = "lasso", alpha = 1,
                           nfolds = 5, family = "cox") {
   # Validate inputs
@@ -131,8 +131,11 @@ goldrl_bioage <- function(d4, var, feature_selection = TRUE,
   b1=coef(l)[2]
   s=summary(l)
   resi=hhat-b1*dd$age
+  
   # Step 1: predict residuals using rest biomarkers
-  cv_fit2 <- glmnet::cv.glmnet(x = x_data, y = resi, family = "gaussian",alpha = alpha_val,nfolds = nfolds)
+  biomarker_vars <- setdiff(var1, "age")
+  x_data1 <- as.matrix(data[, make.names(biomarker_vars)])
+  cv_fit2 <- glmnet::cv.glmnet(x = x_data1, y = resi, family = "gaussian",alpha = alpha_val,nfolds = nfolds)
   yhat = predict(cv_fit2, x_data)
   yhat <- as.matrix(yhat)
   resi1 = yhat[,1] * sd(resi) / sd(yhat[,1])
