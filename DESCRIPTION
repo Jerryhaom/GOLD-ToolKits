@@ -1,0 +1,28 @@
+Package: GOLDToolkits
+Title: GOLD Methods for Biological Age Estimation
+Version: 0.1.0
+Authors@R: 
+    person("Your", "Name", email = "your.email@example.com", role = c("aut", "cre"))
+Description: Implements GOLD, GOLD-R, GOLD-RL, and GOLD-B methods for estimating 
+    biological age using Gompertz mortality models and biomarker data.
+License: MIT + file LICENSE
+Encoding: UTF-8
+LazyData: true
+Depends: R (>= 3.5.0)
+Imports: 
+    flexsurv,
+    glmnet,
+    survival,
+    mvtnorm,
+    simsurv,
+    MASS,
+    ggplot2
+Suggests: 
+    testthat (>= 3.0.0),
+    knitr,
+    rmarkdown
+VignetteBuilder: knitr
+URL: https://github.com/yourusername/GOLDToolkits
+BugReports: https://github.com/yourusername/GOLDToolkits/issues
+Config/testthat/edition: 3
+RoxygenNote: 7.3.3
