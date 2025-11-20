@@ -150,7 +150,7 @@ goldrl_bioage <- function(d4, var, feature_selection = TRUE,
     data=data,
     residual = dage,
     coef = coef3,
-    age = data[,"age"]
+    age = data[,"age"],
     `GOLDRL-Bioage` = data[,"age"] + dage,
     risk=risk
   )
