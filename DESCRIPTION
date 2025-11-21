@@ -9,20 +9,14 @@ License: MIT + file LICENSE
 Encoding: UTF-8
 LazyData: true
 Depends: R (>= 3.5.0)
-Imports: 
-    flexsurv,
-    glmnet,
-    survival,
-    mvtnorm,
-    simsurv,
-    MASS,
-    ggplot2
-Suggests: 
-    testthat (>= 3.0.0),
-    knitr,
-    rmarkdown
+Imports: flexsurv, glmnet, survival, mvtnorm, simsurv, MASS, ggplot2
+Suggests: testthat (>= 3.0.0), knitr, rmarkdown
 VignetteBuilder: knitr
 URL: https://github.com/yourusername/GOLDToolkits
 BugReports: https://github.com/yourusername/GOLDToolkits/issues
 Config/testthat/edition: 3
 RoxygenNote: 7.3.3
+NeedsCompilation: no
+Packaged: 2025-11-21 03:34:35 UTC; Hd50901
+Author: Your Name [aut, cre]
+Maintainer: Your Name <your.email@example.com>
