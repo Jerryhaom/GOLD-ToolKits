@@ -18,7 +18,7 @@ To promote the applications of Gompertz law-based (GOLD) algorithm of biological
 install.packages("devtools") <br>
 devtools::install_github("Jerryhaom/GOLD-ToolKits") <br>
 browseVignettes("GOLDToolkits") <br>
--[View vignette] (https://raw.githack.com/Jerryhaom/GOLD-ToolKits/main/doc/my-vignette.html)  <br>
+[View Online Vignette](https://raw.githack.com/Jerryhaom/GOLD-ToolKits/main/doc/my-vignette.html)  <br>
 
  
 # More information
