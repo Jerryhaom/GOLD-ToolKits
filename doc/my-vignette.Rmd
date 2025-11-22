@@ -102,10 +102,12 @@ cat("\nSummary of GOLDR residuals:\n")
 summary(result2$residual)
 
 #GOLDRL Method 
-
+# Use all variables and age for mortality hazard estimation
+# Use all variables for residual estimation
 result3 <- goldrl_bioage(
   d4 = data1,
   var = var,
+  var1 = colnames(data1)[2:301],
   feature_selection = TRUE,
   selection_method = "lasso",
   alpha = 1,
