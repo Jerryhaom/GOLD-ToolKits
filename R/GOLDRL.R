@@ -39,7 +39,7 @@
 #' # Define variables
 #' var <- c("age", "albumin", "alp", "creat", "glucose_mmol", "lymph", "mcv", "rdw", "wbc", "ggt")
 #' biomarker_vars <- setdiff(var, "age")
-#' 
+#'
 #' # Without feature selection
 #' result1 <- goldrl_bioage(NHANES4, var, biomarker_vars)
 #'
@@ -135,23 +135,26 @@ goldrl_bioage <- function(d4, var, var1, feature_selection = TRUE,
   b1=coef(l)[2]
   s=summary(l)
   resi=hhat-b1*dd$age
-  
+
   # Step 1: predict residuals using rest biomarkers
   biomarker_vars <- var1
   x_data1 <- as.matrix(data[, make.names(biomarker_vars)])
   cv_fit2 <- glmnet::cv.glmnet(x = x_data1, y = resi, family = "gaussian",alpha = alpha_val,nfolds = nfolds)
   yhat = predict(cv_fit2, x_data1)
   yhat <- as.matrix(yhat)
-  resi1 = yhat[,1] * sd(resi) / sd(yhat[,1])
-  gamma = sd(resi) / sd(yhat[,1])
-  beta0 = -mean(resi1) + mean(resi)
-  resi1 = resi1 + beta0
-  dage = (resi1 - s$coefficients[1,1]) / s$coefficients[2,1]
-  coef2 = coef(cv_fit2)[,1]
+
+  data1$hh=yhat[,1]
+  formula_str1 <- "survival::Surv(time, status) ~ age+hh"
+  fitg3 <- flexsurv::flexsurvreg(formula = as.formula(formula_str1),
+                                 data = data1, dist = "gompertz")
+  coef33 <- fitg3$res[, 1]
+  print(coef33)
+
+  gamma =  coef33["hh"]/coef33["age"]
+  dage=  data1$hh * gamma
+  coef2 = coef(cv_fit2)[, 1]
   coef2 = coef2[coef2 != 0]
   coef3 = coef2 * gamma
-  coef3[1] = coef3[1] - s$coefficients[1,1] + beta0
-  coef3 = coef3 / s$coefficients[2,1]
   # Prepare results
   result <- list(
     data=data,
