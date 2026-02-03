@@ -45,10 +45,6 @@ goldr_bioage <- function(d4, var, feature_selection = FALSE,
     stop("'age' must be included in the variable list")
   }
 
-  if (!all(c("time", "status") %in% names(d4))) {
-    stop("Data must contain 'time' and 'status' columns")
-  }
-
   # Prepare data
   data <- data.frame(d4[, var, drop = FALSE], check.names = FALSE)
   data <- stats::na.omit(data)
